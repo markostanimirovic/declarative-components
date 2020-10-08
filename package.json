@@ -1,12 +1,11 @@
 {
   "name": "declarative-components",
+  "author": "Marko Stanimirović",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint"
+    "start": "ng build component-features && ng serve showcase",
+    "prettier": "prettier --write ."
   },
   "private": true,
   "dependencies": {
@@ -23,9 +22,12 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1001.4",
     "@angular/cli": "~10.1.4",
     "@angular/compiler-cli": "~10.1.4",
     "@types/node": "^12.11.1",
+    "ng-packagr": "^10.1.0",
+    "prettier": "^2.1.2",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.0.2"
