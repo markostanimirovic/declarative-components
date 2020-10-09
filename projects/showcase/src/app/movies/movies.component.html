@@ -1,0 +1,19 @@
+<h2>Movies</h2>
+
+<div>
+  <input type="text" class="buffer-right" #movieInput />
+  <button (click)="actions.addMovie({ movie: movieInput.value })">Add a Movie</button>
+</div>
+
+<ul>
+  <li
+    *ngFor="let movie of movies"
+    class="pointer"
+    [class.selected]="movie === selectedMovie"
+    (click)="actions.updateSelectedMovie({ selectedMovie: movie })"
+  >
+    {{ movie }}
+  </li>
+</ul>
+
+<button (click)="actions.removeSelectedMovie()">Remove Selected Movie</button>
