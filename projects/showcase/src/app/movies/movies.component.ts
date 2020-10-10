@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MoviesActions } from './movies.handlers';
-import { ComponentFeatures, withActions, withSelect } from 'component-features';
+import { ComponentFeatures, withActions, withSelectors } from 'component-features';
 import { selectMovies, selectSelectedMovie } from './movies.selectors';
 
 @Component({
@@ -9,7 +9,7 @@ import { selectMovies, selectSelectedMovie } from './movies.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 @ComponentFeatures([
-  withSelect({
+  withSelectors({
     movies: selectMovies,
     selectedMovie: selectSelectedMovie,
   }),

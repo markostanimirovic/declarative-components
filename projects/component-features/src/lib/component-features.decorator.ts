@@ -2,9 +2,9 @@ import { Type, ɵComponentType } from '@angular/core';
 import { Feature } from './models';
 
 export function ComponentFeatures(features: Feature[]) {
-  return (componentType: Type<any>) => {
+  return (componentType: Type<unknown>) => {
     for (const feature of features) {
-      feature((componentType as ɵComponentType<any>).ɵcmp);
+      feature((componentType as ɵComponentType<unknown>).ɵcmp);
     }
   };
 }

@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit, ɵdetectChanges } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ComponentFeatures, withRouterOutlet } from 'component-features';
 
 @Component({
   selector: 'sc-root',
@@ -12,14 +12,5 @@ import { NavigationEnd, Router } from '@angular/router';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
-  constructor(private router: Router) {}
-
-  ngOnInit() {
-    this.router.events.subscribe((event: unknown) => {
-      if (event instanceof NavigationEnd) {
-        ɵdetectChanges(this);
-      }
-    });
-  }
-}
+@ComponentFeatures([withRouterOutlet()])
+export class AppComponent {}

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CounterActions } from './counter.handlers';
-import { ComponentFeatures, withActions, withSelect } from 'component-features';
+import { ComponentFeatures, withActions, withSelectors } from 'component-features';
 
 @Component({
   selector: 'sc-movies',
@@ -14,7 +14,7 @@ import { ComponentFeatures, withActions, withSelect } from 'component-features';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 @ComponentFeatures([
-  withSelect({ count: (state: { counter: number }) => state.counter }),
+  withSelectors({ count: (state: { counter: number }) => state.counter }),
   withActions(CounterActions),
 ])
 export class CounterComponent {
