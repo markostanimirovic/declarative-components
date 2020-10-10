@@ -9,13 +9,15 @@ export interface LifecycleHookProviders {
   detectChanges: typeof ɵdetectChanges;
 }
 
+export type LifecycleHook = (providers: LifecycleHookProviders) => void;
+
 export interface LifecycleHooks {
-  ngOnChanges?(providers: LifecycleHookProviders): void;
-  ngOnInit?(providers: LifecycleHookProviders): void;
-  ngDoCheck?(providers: LifecycleHookProviders): void;
-  ngAfterContentInit?(providers: LifecycleHookProviders): void;
-  ngAfterContentChecked?(providers: LifecycleHookProviders): void;
-  ngAfterViewInit?(providers: LifecycleHookProviders): void;
-  ngAfterViewChecked?(providers: LifecycleHookProviders): void;
-  ngOnDestroy?(providers: LifecycleHookProviders): void;
+  ngOnChanges?: LifecycleHook;
+  ngOnInit?: LifecycleHook;
+  ngDoCheck?: LifecycleHook;
+  ngAfterContentInit?: LifecycleHook;
+  ngAfterContentChecked?: LifecycleHook;
+  ngAfterViewInit?: LifecycleHook;
+  ngAfterViewChecked?: LifecycleHook;
+  ngOnDestroy?: LifecycleHook;
 }

@@ -1,5 +1,5 @@
 import { Action, ActionCreator, Store } from '@ngrx/store';
-import { Feature } from '../models';
+import { Feature, LifecycleHook } from '../models';
 import { createFeature } from '../create-feature';
 
 interface Actions {
@@ -7,16 +7,16 @@ interface Actions {
 }
 
 export function withActions(actions: Actions): Feature {
-  return createFeature({
-    ngOnInit({ component, inject }) {
-      const store = inject(Store);
-      component.actions = Object.keys(actions).reduce(
-        (acc, key) => ({
-          ...acc,
-          [key]: (payload: unknown) => store.dispatch(actions[key](payload) as Action),
-        }),
-        {},
-      );
-    },
-  });
+  const ngOnInit: LifecycleHook = ({ component, inject }) => {
+    const store = inject(Store);
+    component.actions = Object.keys(actions).reduce(
+      (acc, key) => ({
+        ...acc,
+        [key]: (payload: unknown) => store.dispatch(actions[key](payload) as Action),
+      }),
+      {},
+    );
+  };
+
+  return createFeature({ ngOnInit });
 }
