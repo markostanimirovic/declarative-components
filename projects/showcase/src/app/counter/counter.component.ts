@@ -3,7 +3,7 @@ import { CounterActions } from './counter.handlers';
 import { ComponentFeatures, withActions, withSelectors } from 'component-features';
 
 @Component({
-  selector: 'sc-movies',
+  selector: 'sc-counter',
   template: `
     <h2>Counter</h2>
     <button class="buffer-right" (click)="actions.increment()">Increment</button>
@@ -13,11 +13,8 @@ import { ComponentFeatures, withActions, withSelectors } from 'component-feature
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-@ComponentFeatures([
-  withSelectors({ count: (state: { counter: number }) => state.counter }),
-  withActions(CounterActions),
-])
+@ComponentFeatures([withSelectors({ count: 'counter' }), withActions(CounterActions)])
 export class CounterComponent {
-  count!: number[];
+  count!: number;
   actions!: typeof CounterActions;
 }
