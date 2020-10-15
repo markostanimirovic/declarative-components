@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { Feature, LifecycleHook } from '../models';
 import { NavigationEnd, Router } from '@angular/router';
 import { createFeature } from '../create-feature';
@@ -7,11 +7,14 @@ import { createFeature } from '../create-feature';
 export function withRouterOutlet(): Feature {
   const destroy = new Subject();
 
-  const ngOnInit: LifecycleHook = ({ component, inject, detectChanges }) => {
+  const ngOnInit: LifecycleHook = ({ component, inject, markDirty }) => {
     const router = inject(Router);
-    router.events.pipe(takeUntil(destroy)).subscribe((event: unknown) => {
-      if (event instanceof NavigationEnd) detectChanges(component);
-    });
+    router.events
+      .pipe(
+        filter(e => e instanceof NavigationEnd),
+        takeUntil(destroy),
+      )
+      .subscribe(() => markDirty(component));
   };
 
   const ngOnDestroy = () => destroy.next();

@@ -1,4 +1,4 @@
-import { ɵComponentDef, ɵdetectChanges, ɵmarkDirty, ɵɵdirectiveInject } from '@angular/core';
+import { ɵComponentDef, ɵmarkDirty, ɵɵdirectiveInject } from '@angular/core';
 import { Feature, LifecycleHooks } from './models';
 
 export function createFeature(hooks: LifecycleHooks): Feature {
@@ -10,7 +10,6 @@ export function createFeature(hooks: LifecycleHooks): Feature {
           component: this,
           inject: ɵɵdirectiveInject,
           markDirty: ɵmarkDirty,
-          detectChanges: ɵdetectChanges,
         });
 
         if (originalHook) originalHook.call(this);

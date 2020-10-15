@@ -1,4 +1,4 @@
-import { ɵComponentDef, ɵdetectChanges, ɵmarkDirty, ɵɵdirectiveInject } from '@angular/core';
+import { ɵComponentDef, ɵmarkDirty, ɵɵdirectiveInject } from '@angular/core';
 
 export type Feature = (componentDef: ɵComponentDef<unknown>) => void;
 
@@ -6,7 +6,6 @@ export interface LifecycleHookProviders {
   component: any;
   inject: typeof ɵɵdirectiveInject;
   markDirty: typeof ɵmarkDirty;
-  detectChanges: typeof ɵdetectChanges;
 }
 
 export type LifecycleHook = (providers: LifecycleHookProviders) => void;
