@@ -10,9 +10,9 @@ export function withActions(actions: Actions): Feature {
   const ngOnInit: LifecycleHook = ({ component, inject }) => {
     const store = inject(Store);
     component.actions = Object.keys(actions).reduce(
-      (acc, key) => ({
+      (acc, actionName) => ({
         ...acc,
-        [key]: (payload: unknown) => store.dispatch(actions[key](payload) as Action),
+        [actionName]: (payload: unknown) => store.dispatch(actions[actionName](payload) as Action),
       }),
       {},
     );
