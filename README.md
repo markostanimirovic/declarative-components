@@ -1,8 +1,8 @@
-# Declarative Components
+# ✨ Declarative and Zone-Less Angular Components With Ivy Features and NgRx
 
-**Declarative and Zone-Less Angular Components With Ivy Features and NgRx**
+## TLDR; What's the goal?
 
-### Before
+To transform this:
 
 ```typescript
 @Component({
@@ -17,7 +17,7 @@
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CounterComponent {
-  count$ = this.store.select('counter');
+  count$ = this.store.select(selectCount);
 
   constructor(private store: Store<{ counter: number }>) {}
 
@@ -35,7 +35,7 @@ export class CounterComponent {
 }
 ```
 
-### After
+into this:
 
 ```typescript
 @Component({
@@ -49,9 +49,21 @@ export class CounterComponent {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-@ComponentFeatures([withSelectors({ count: 'counter' }), withActions(CounterActions)])
+@ComponentFeatures([withSelectors({ count: selectCount }), withActions(CounterActions)])
 export class CounterComponent {
   count!: number;
   actions!: typeof CounterActions;
 }
 ```
+
+Okay, let's start step by step. 🙂
+
+## Introduction
+
+Let's recap Angular concepts that are important for this article.
+
+### What is Zone.js?
+
+### What are Ivy features?
+
+**UNDER_CONSTRUCTION**
