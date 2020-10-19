@@ -1,4 +1,4 @@
-# ✨ Declarative and Zone-Less Angular Components With Ivy Features and NgRx
+# Declarative and Zone-Less Angular Components With Ivy Features and NgRx
 
 ## TLDR; What's the goal?
 
@@ -60,9 +60,16 @@ Okay, let's start step by step. 🙂
 
 ## Introduction
 
-Let's recap Angular concepts that are important for this article.
+Let's first recap the concepts that are important for this article.
 
 ### What is Zone.js?
+
+**Disadvantages**
+- Tree shaking -> Bundle size
+- Application bootstrap speed
+- Performance -> Unneccessary rerendering
+
+**markDirty**
 
 ### What are Ivy features?
 
