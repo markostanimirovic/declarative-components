@@ -4,59 +4,11 @@
 
 To transform this:
 
-```typescript
-@Component({
-  selector: 'app-counter',
-  template: `
-    <h2>Counter</h2>
-    <button (click)="onIncrement()">Increment</button>
-    <button (click)="onDecrement()">Decrement</button>
-    <button (click)="onReset()">Reset</button>
-    <p>Value: {{ count$ | async }}</p>
-  `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class CounterComponent {
-  count$ = this.store.select(selectCount);
-
-  constructor(private store: Store<{ counter: number }>) {}
-
-  onIncrement() {
-    this.store.dispatch(CounterActions.increment());
-  }
-
-  onDecrement() {
-    this.store.dispatch(CounterActions.decrement());
-  }
-
-  onReset() {
-    this.store.dispatch(CounterActions.reset());
-  }
-}
-```
+<img src="https://i.ibb.co/BPhYZkx/counter-component-before.png" alt="counter-component-before">
 
 into this:
 
-```typescript
-@Component({
-  selector: 'app-counter',
-  template: `
-    <h2>Counter</h2>
-    <button (click)="actions.increment()">Increment</button>
-    <button (click)="actions.decrement()">Decrement</button>
-    <button (click)="actions.reset()">Reset</button>
-    <p>Value: {{ count }}</p>
-  `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-@ComponentFeatures([withSelectors({ count: selectCount }), withActions(CounterActions)])
-export class CounterComponent {
-  count!: number;
-  actions!: typeof CounterActions;
-}
-```
-
-Okay, let's start step by step. 🙂
+<img src="https://i.ibb.co/5vQ1zCT/counter-component-after.png" alt="counter-component-after">
 
 ## Introduction
 
@@ -64,10 +16,24 @@ Let's first recap the concepts that are important for this article.
 
 ### What is Zone.js?
 
+Zone.js is a script that is executed before the Angular application is bootstrapped. It
+<a href="https://www.audero.it/blog/2016/12/05/monkey-patching-javascript/#what-is-monkey-patching" target="_blank">monkey patches</a>
+asynchronous browser APIs (e.g. `setTimeout`, `setInterval`, `addEventListener`, `Promise`) by adding the code that will tell the Angular when
+to run change detection mechanism. You can check that by opening the console in your Angular app and running the following code:
+
+<img src="https://i.ibb.co/9pc83YJ/zone-js-monkey-patching.png" alt="zone-js-monkey-patching">
+
+Angular wrapps zone.js within the `NgZone` service. `ApplicationRef` injects it, listens to the `onMicrotaskEmpty` emitter and invokes
+`tick` method that will rerender the views.
+
+<img src="https://i.ibb.co/NYXxQ01/application-ref.png" alt="application-ref">
+
 **Disadvantages**
 - Tree shaking -> Bundle size
 - Application bootstrap speed
 - Performance -> Unneccessary rerendering
+
+
 
 **markDirty**
 
