@@ -29,11 +29,10 @@ Angular wrapps zone.js within the `NgZone` service. `ApplicationRef` injects it,
 <img src="https://i.ibb.co/NYXxQ01/application-ref.png" alt="application-ref">
 
 **Disadvantages**
+
 - Tree shaking -> Bundle size
 - Application bootstrap speed
 - Performance -> Unneccessary rerendering
-
-
 
 **markDirty**
 
