@@ -80,6 +80,7 @@ You will probably miss calling `ɵmarkDirty` somehere.
 Thankfully, there are few approaches how to trigger change detection automatically in zone-less environment:
 
 1) [Push Pipe and RxLet Directive](https://youtu.be/wwx_KB49p3g) by Michael Hladky
+(see the prototype of `push` pipe [here](https://github.com/markostanimirovic/ng-under-the-hood/blob/master/src/app/zone-less-async.pipe.ts))
 2) [Reactive Component](https://youtu.be/rz-rcaGXhGk) by Mike Ryan
 
 Third approach is via Ivy Features. Let's take a closer look at htem.
