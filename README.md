@@ -4,11 +4,11 @@
 
 To transform this:
 
-![movies-component-before](./images/movies-component-before.png)
+<img src="./images/movies-component-before.png" alt="movies-component-before" width="550" />
 
 into this:
 
-![movies-component-after](./images/movies-component-after.png)
+<img src="./images/movies-component-after.png" alt="movies-component-after" width="550" />
 
 ## Introduction
 
@@ -26,9 +26,9 @@ to run change detection mechanism. You can check that by opening the console in 
 Angular wraps zone.js within the `NgZone` service. `ApplicationRef` injects it, listens to the `onMicrotaskEmpty` observable and invokes
 `tick` method that will trigger the change detection mechanism.
 
-![application-ref-tick](./images/application-ref-tick.png)
+<img src="./images/application-ref-tick.png" alt="application-ref-tick" width="550" />
 
-#### Zone.js Downsides
+Zone.js tells Angular when to run the change detection, but it has a couple of downsides:
 
 - Not tree shakable (uncompressed size >100kB)
 - Slower application bootstrap speed
@@ -36,14 +36,54 @@ Angular wraps zone.js within the `NgZone` service. `ApplicationRef` injects it, 
 - Hard to debug
 - Cannot monkey patch native async/await
 
-### Trigger Change Detection without Zone.js
+### Trigger Change Detection Manually
 
-Hopefully, there is `markDirty` function.
+If you exclude zone.js from your Angular application, the change detection will not work.
+To make it work again, you need to run change detection somehow. For that purpose, Angular offers `ɵmarkDirty` function.
+`ɵmarkDirty` accepts component instance as an argument and when invoked, it will go up to the root component and schedule
+change detection.
 
-### How to Trigger Change Detection Automatically?
+```typescript
+import { Component, ɵmarkDirty } from '@angular/core';
 
-#### Reactive Component
+@Component({
+  selector: 'app-counter',
+  template: `
+    <h1>Counter</h1>
+    <div>
+      <button (click)="onIncrement()">+</button>
+      <span>{{ count }}</span>
+      <button (click)="onDecrement()">-</button>
+    </div>
+  `,
+})
+export class CounterComponent {
+  count = 0;
 
-#### Ivy Features
+  onIncrement(): void {
+    this.count++;
+    ɵmarkDirty(this);
+  }
+
+  onDecrement(): void {
+    this.count--;
+    ɵmarkDirty(this);
+  }
+}
+```
+
+And change detection works again! But it's not awesome to trigger it mannualy everytime when the state of component is updated.
+You will probably miss calling `ɵmarkDirty` somehere.
+
+### Trigger Change Detection Automatically
+
+Thankfully, there are few approaches how to trigger change detection automatically in zone-less environment:
+
+1) [Push Pipe and RxLet Directive](https://youtu.be/wwx_KB49p3g) by Michael Hladky
+2) [Reactive Component](https://youtu.be/rz-rcaGXhGk) by Mike Ryan
+
+Third approach is via Ivy Features. Let's take a closer look at htem.
+
+## Ivy Features
 
 **UNDER_CONSTRUCTION**
